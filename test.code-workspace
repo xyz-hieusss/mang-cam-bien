@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "../../dht11/test"
+		},
+		{
+			"name": "dht11",
+			"path": "../../dht11"
+		},
+		{
+			"name": "bh1750",
+			"path": "."
+		},
+		{
+			"name": "ReadBh1750",
+			"path": "../doc_bh1750/ReadBh1750"
+		},
+		{
+			"name": "ReadBh1750",
+			"path": "../ReadBh1750"
+		}
+	],
+	"settings": {}
+}
