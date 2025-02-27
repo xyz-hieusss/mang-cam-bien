@@ -8,9 +8,9 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "D:/Mang cam bien/bai th1/bh1750/include",
-                "D:/Mang cam bien/bai th1/bh1750/src",
-                "D:/Mang cam bien/bai th1/bh1750/.pio/libdeps/esp32doit-devkit-v1/BH1750/src",
+                "D:/Mang cam bien/Bai th1/BH1750/bh1750/include",
+                "D:/Mang cam bien/Bai th1/BH1750/bh1750/src",
+                "D:/Mang cam bien/Bai th1/BH1750/bh1750/.pio/libdeps/esp32doit-devkit-v1/BH1750/src",
                 "C:/Users/MSII/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 "C:/Users/MSII/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "C:/Users/MSII/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
@@ -245,9 +245,9 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "D:/Mang cam bien/bai th1/bh1750/include",
-                    "D:/Mang cam bien/bai th1/bh1750/src",
-                    "D:/Mang cam bien/bai th1/bh1750/.pio/libdeps/esp32doit-devkit-v1/BH1750/src",
+                    "D:/Mang cam bien/Bai th1/BH1750/bh1750/include",
+                    "D:/Mang cam bien/Bai th1/BH1750/bh1750/src",
+                    "D:/Mang cam bien/Bai th1/BH1750/bh1750/.pio/libdeps/esp32doit-devkit-v1/BH1750/src",
                     "C:/Users/MSII/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     "C:/Users/MSII/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "C:/Users/MSII/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
