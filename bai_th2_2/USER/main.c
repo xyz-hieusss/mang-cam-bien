@@ -14,7 +14,8 @@ void UART1_SendString(char *str);
 void I2C1_config(void);
 void I2C1_write(uint8_t HW_address, uint8_t sub, uint8_t data);
 void I2C1_read_buf(uint8_t HW_address, uint8_t sub, uint8_t *p_buf, uint8_t buf_size);
-float BH1750_ReadLux(void);
+void BH1750_Init (void);
+float BH1750_Readlux(void);
 
 void I2C1_config()
 {
@@ -43,54 +44,76 @@ void I2C1_config()
 
 void I2C1_write(uint8_t HW_address, uint8_t sub, uint8_t data)
 {
-    ticks = I2C_TIMEOUT;
+    
     I2C_GenerateSTART(I2C1, ENABLE);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT) && ticks--) {}
-
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT) && ticks) {ticks --;}
+		if(ticks == 0) return;
+			ticks = I2C_TIMEOUT;
+			
     I2C_Send7bitAddress(I2C1, HW_address, I2C_Direction_Transmitter);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) && ticks--) {}
-
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) && ticks) {ticks--;}
+		if (ticks == 0) return;
+			ticks = I2C_TIMEOUT;
+			
     if (sub != 0xFF)
     {
         I2C_SendData(I2C1, sub);
-        while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED) && ticks--) {}
+        while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED) && ticks) {ticks--;}
+				if(ticks ==0) return;
+					ticks= I2C_TIMEOUT;
+					
     }
 
     I2C_SendData(I2C1, data);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED) && ticks--) {}
-
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED) && ticks) {ticks--;}
+		if(ticks==0) return;
+			ticks = I2C_TIMEOUT;
+		
     I2C_GenerateSTOP(I2C1, ENABLE);
+		
+		while((I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY)) && ticks) {ticks--;}
+		if (ticks == 0) return;
+		 ticks = I2C_TIMEOUT;
 }
 
 void I2C1_read_buf(uint8_t HW_address, uint8_t sub, uint8_t *p_buf, uint8_t buf_size)
 {
-    ticks = I2C_TIMEOUT;
+   
     I2C_GenerateSTART(I2C1, ENABLE);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT) && ticks--) {}
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT) && ticks) {ticks--;}
 
     I2C_Send7bitAddress(I2C1, HW_address, I2C_Direction_Transmitter);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) && ticks--) {}
+    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) && ticks) {ticks--;}
 
     if (sub != 0xFF)
     {
         I2C_SendData(I2C1, sub);
-        while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED) && ticks--) {}
+        while((!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED)));
     }
 
     I2C_GenerateSTART(I2C1, ENABLE);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT) && ticks--) {}
+    while((!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT)));
 
     I2C_Send7bitAddress(I2C1, HW_address, I2C_Direction_Receiver);
-    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED) && ticks--) {}
+    while((!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED)));
 
     for(uint8_t i = 0; i < buf_size; i++)
     {
-        while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED) && ticks--) {}
+        while((!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED)));
         p_buf[i] = I2C_ReceiveData(I2C1);
     }
-
+		I2C_AcknowledgeConfig(I2C1,DISABLE);
+		I2C_NACKPositionConfig(I2C1,I2C_NACKPosition_Current);
+		
     I2C_GenerateSTOP(I2C1, ENABLE);
+		while(I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));
 }
+
+void BH1750_Init (void)
+{
+	I2C1_write(BH1750_ADDR, 0xFF, BH1750_POWER_ON);
+}
+
 
 float BH1750_ReadLux(void)
 {
@@ -138,14 +161,14 @@ int main(void)
 {
     I2C1_config();
     UART1_Init();
-
+		BH1750_Init();
     while (1)
     {
         float lux = BH1750_ReadLux();
         char buffer[20];
         sprintf(buffer, "Lux: %.2f\r\n", lux);
         UART1_SendString(buffer);
-
-        for (volatile uint32_t i = 0; i < 1000000; i++);
+			
+        for (volatile uint32_t i = 0; i < 2000000; i++);
     }
 }

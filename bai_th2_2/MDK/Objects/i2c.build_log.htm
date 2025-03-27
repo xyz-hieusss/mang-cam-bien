@@ -17,27 +17,27 @@ Library Manager: ArmAr.exe V6.13.1
 Hex Converter:   FromElf.exe V6.13.1
 CPU DLL:         SARMCM3.DLL V5.29.0.0
 Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      UL2CM3.DLL V1.163.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
 Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
-D:\Mang cam bien\i2c\MDK\i2c.uvprojx
-Project File Date:  03/22/2025
+D:\Mang cam bien\bai_th2_2\MDK\i2c.uvprojx
+Project File Date:  03/25/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 compiling GPIO_STM32F10x.c...
-compiling main.c...
 compiling misc.c...
-compiling stm32f10x_i2c.c...
-compiling stm32f10x_rcc.c...
 compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
 compiling stm32f10x_usart.c...
+compiling stm32f10x_i2c.c...
+compiling main.c...
 assembling startup_stm32f10x_md.s...
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=7312 RO-data=448 RW-data=0 ZI-data=1640  
+Program Size: Code=7624 RO-data=448 RW-data=0 ZI-data=1640  
 ".\Objects\i2c.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -77,21 +77,21 @@ Package Vendor: Keil
       Include file:  RTE_Driver\GPIO_STM32F10x.h
 
    * Component: Keil::Device:Startup:1.0.0
+      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\system_stm32f10x.c
       Source file:   Device\Source\ARM\startup_stm32f10x_md.s
-      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
 
    * Component: Keil::Device:StdPeriph Drivers:Framework:3.6.0
       Include file:  Device\StdPeriph_Driver\templates\stm32f10x_it.h
       Source file:   Device\StdPeriph_Driver\templates\stm32f10x_it.c
-      Source file:   Device\StdPeriph_Driver\templates\stm32f10x_conf.h
       Source file:   Device\StdPeriph_Driver\src\misc.c
+      Source file:   Device\StdPeriph_Driver\templates\stm32f10x_conf.h
       Include file:  Device\StdPeriph_Driver\inc\misc.h
 
    * Component: Keil::Device:StdPeriph Drivers:GPIO:3.6.0
-      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_gpio.h
       Source file:   Device\StdPeriph_Driver\src\stm32f10x_gpio.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_gpio.h
 
    * Component: Keil::Device:StdPeriph Drivers:I2C:3.6.0
       Source file:   Device\StdPeriph_Driver\src\stm32f10x_i2c.c
@@ -104,7 +104,7 @@ Package Vendor: Keil
    * Component: Keil::Device:StdPeriph Drivers:USART:3.6.0
       Include file:  Device\StdPeriph_Driver\inc\stm32f10x_usart.h
       Source file:   Device\StdPeriph_Driver\src\stm32f10x_usart.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
